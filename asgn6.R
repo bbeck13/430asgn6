@@ -1,12 +1,14 @@
+library('RUnit')
+
 pg1 = list("+", list("+", 2, 1), 1)
 num = 1
 num = simpleError("Expected Number", call = NULL)
-evaulate <- function(prog) {
+evaluate <- function(prog) {
   if (typeof(prog) == "list"){
     if (typeof(prog[[1]]) == "character") {
       op <- prog[[1]]
       if (op == "+")
-        return((parse(prog[[2]]) + parse(prog[[3]])))
+        return((evaluate(prog[[2]]) + evaluate(prog[[3]])))
     } else {
       return("Not yet")
     }
@@ -16,5 +18,5 @@ evaulate <- function(prog) {
   else
     return("error input must be list")
 }
-parse(pg1)
-parse(num)
+checkEquals(evaluate(pg1), 4)
+checkEquals(evaluate(num), 1)
