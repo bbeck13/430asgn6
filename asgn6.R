@@ -1,5 +1,4 @@
-pg1 = list("+", 2, 1)
-#list("+", 2, 1)
+pg1 = list("+", list("+", 2, 1), 1)
 num = 1
 num = simpleError("Expected Number", call = NULL)
 evaulate <- function(prog) {
