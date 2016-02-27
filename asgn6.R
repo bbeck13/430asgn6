@@ -14,6 +14,8 @@ compare2 = list("<=", 5, 3)
 compare3 = list("<=", 2, 2)
 if1 = list("if", TRUE, 1, 0)
 if2 = list("if", FALSE, 1, 0)
+func1 = list(list("func", list(), list("+", 1, 2)), list())
+func2 = list(list("func", list(), list("+", 1, 2)), list(2))
 badpg = list("+", list("+", 2, 1), 1)
 num = 1
 
@@ -61,7 +63,7 @@ evaluate <- function(prog) {
          if (evaluate(prog[[1]])[1] == "func") {
             fnc <- evaluate(prog[[1]])
             if (length(fnc[[2]]) != length(prog[[2]])) {
-               signalCondition(simpleError("Rad BArity", call = length(prog[[2]])))
+               signalCondition(simpleError("Bad Arity", call = length(prog[[2]])))
             } else {
                i = 1
                for (ch in fnc[[2]]) {
@@ -100,8 +102,9 @@ checkEquals(evaluate(compare3), TRUE)
 checkEquals(evaluate(if1), 1)
 checkEquals(evaluate(if2), 0)
 checkException(evaluate("bad"))
+checkException(evaluate(func2))
 checkEquals(myRep("a", list("a"), 1), list(1))
-#(evaluate(list(list("func", list(), list("+", 1, 2)), list())))
+checkEquals(evaluate(func1), 3)
 checkEquals(evaluate(list(list("func", list(), list("+", 1, 2)), list())), 3)
 checkEquals(evaluate(list(list("func", list("a"), list("+", "a", "a")), list(1))), 2)
 
