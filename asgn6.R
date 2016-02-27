@@ -50,7 +50,7 @@ getFromEnv <- function(var, environment) {
 bindLocals <- function(env, locals) {
    newenv = env
    for (bind in locals) {
-      newenv = c(newenv, bind[[1]], bind[[3]])
+      newenv = c(newenv, bind[[1]], evaluate(bind[[3]], env))
    }
    return(newenv)
 }
@@ -153,3 +153,4 @@ checkEquals(myRep("a", list("a"), 1), list(1))
 checkEquals(topeval(func1), 3)
 checkEquals(topeval(list(list("func", list(), list("+", 1, 2)), list())), 3)
 checkEquals(topeval(list(list("func", list("a"), list("+", "a", "a")), list(1))), 2)
+checkEquals(topeval(pg5), 3)
