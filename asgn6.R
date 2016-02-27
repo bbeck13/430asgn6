@@ -1,13 +1,14 @@
+library('RUnit')
+
 pg1 = list("+", list("+", 2, 1), 1)
 badpg = list("+", list("+", 2, 1), 1)
 num = 1
-
-evaulate <- function(prog) {
-  if (typeof(prog) == "list") {
+evaluate <- function(prog) {
+  if (typeof(prog) == "list"){
     if (typeof(prog[[1]]) == "character") {
       op <- prog[[1]]
       if (op == "+")
-        return((evaulate(prog[[2]]) + evaulate(prog[[3]])))
+        return((evaluate(prog[[2]]) + evaluate(prog[[3]])))
     } else {
       return("Not yet")
     }
@@ -19,5 +20,5 @@ evaulate <- function(prog) {
     simpleError("Input must be list, number, or boolean")
 }
 
-evaulate(pg1)
-evaulate(num)
+checkEquals(evaluate(pg1), 4)
+checkEquals(evaluate(num), 1)
