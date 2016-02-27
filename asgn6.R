@@ -1,7 +1,8 @@
 pg1 = list("+", 2, 1)
 #list("+", 2, 1)
 num = 1
-parse <- function(prog) {
+num = simpleError("Expected Number", call = NULL)
+evaulate <- function(prog) {
   if (typeof(prog) == "list"){
     if (typeof(prog[[1]]) == "character") {
       op <- prog[[1]]
