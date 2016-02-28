@@ -55,6 +55,17 @@ bindLocals <- function(env, locals) {
    return(newenv)
 }
 
+myRep <- function(rep, inHere, with) {
+  i2 = 1
+  for (ch in inHere) {
+    if (ch == rep){
+      inHere[[i2]] <- with
+    }
+    i2 <- i2 + 1
+  }
+  inHere
+}
+
 evaluate <- function(prog, env) {
    if (typeof(prog) == "list"){
       if (typeof(prog[[1]]) == "character") {
@@ -152,5 +163,7 @@ checkException(topeval(func2))
 checkEquals(myRep("a", list("a"), 1), list(1))
 checkEquals(topeval(func1), 3)
 checkEquals(topeval(list(list("func", list(), list("+", 1, 2)), list())), 3)
-checkEquals(topeval(list(list("func", list("a"), list("+", "a", "a")), list(1))), 2)
+checkEquals(topeval(list(list("func", list("a", "b"), list("+", "a", "b")), list(1, 3))), 4)
 checkEquals(topeval(pg5), 3)
+checkEquals(topeval(list(list("func", list("f", "a"), list("f", "a")), 
+                        list(list("func", list("a"), list("+", "a", 3)), list(5)))), 8)
